@@ -1,0 +1,35 @@
+<resources>
+    <string name="app_name">TakeNote</string>
+    <string name="email_address">Email Address</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="signup">SignUp</string>
+    <string name="or">Or</string>
+    <string name="logout">LogOut</string>
+    <string name="already_have_account">Already have Account?</string>
+    <string name="create_account">Create Account</string>
+    <string name="login">Login</string>
+    <string name="favourites">Favourites</string>
+    <string name="login_to_your_account">Login to your Account</string>
+    <string name="create_a_new_account">Create a New Account</string>
+    <string name="sign_in_with_google">Sign in with Google</string>
+    <string name="weak_password">The given password is Invalid</string>
+    <string name="invalid_email">The email address is badly formatted</string>
+    <string name="error_user_exist">The email address is already in use by another account</string>
+    <string name="empty_field">Field(s) cannot be left empty</string>
+    <string name="invalid_user">This email isn\'t registered with any user in our database</string>
+    <string name="check_network_connection">Check your network connection and try again</string>
+    <string name="to_buy">I want to buy some stuff today and things like that </string>
+    <string name="Grocery">Grocery</string>
+    <string name="preview_date">27th of june, 2018</string>
+    <string name="enter_title">Enter Title</string>
+    <string name="enter_your_notes">Enter your Notes</string>
+    <string name="save">Save</string>
+    <string name="welcome_to_takenote_app">Welcome to TakeNote App</string>
+    <string name="need_a_new_account">Need a new Account ?</string>
+    <string name="try_again_later">Could not connect at the moment, please try again</string>
+    <string name="note_uploaded">Note uploaded succesfully</string>
+    <string name="note_received">Note received, would be uploaded when network connection is better</string>
+
+</resources>

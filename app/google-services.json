@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "361086582672",
+    "firebase_url": "https://takenote-15f9e.firebaseio.com",
+    "project_id": "takenote-15f9e",
+    "storage_bucket": "takenote-15f9e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:361086582672:android:dd3c46f6f3503591",
+        "android_client_info": {
+          "package_name": "com.example.codetillamgone.takenote"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "361086582672-o6e57rd31g8grjvif6q056v5l11qvk6g.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.codetillamgone.takenote",
+            "certificate_hash": "f26897f252715bdd8cd31a78bda3832545b68b12"
+          }
+        },
+        {
+          "client_id": "361086582672-ev8akh57fmdt83uk33qr3n8u2uf6k4rc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDXuq1uHkCqPX_n0au3oIKDGFvRZP7MKl0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "361086582672-ev8akh57fmdt83uk33qr3n8u2uf6k4rc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
