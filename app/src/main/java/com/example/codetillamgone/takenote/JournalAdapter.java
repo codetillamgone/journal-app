@@ -1,5 +1,6 @@
 package com.example.codetillamgone.takenote;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -10,6 +11,7 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
 
 public class JournalAdapter extends FirebaseRecyclerAdapter<Journal, JournalAdapter.JournalAdapterViewHolder> {
+  
 
 
     public JournalAdapter(Class<Journal> modelClass, int modelLayout, Class<JournalAdapterViewHolder> viewHolderClass, DatabaseReference ref) {
@@ -22,10 +24,19 @@ public class JournalAdapter extends FirebaseRecyclerAdapter<Journal, JournalAdap
         viewHolder.setTitle(model.getTitle());
         viewHolder.setNote(model.getNote());
         viewHolder.setDate(model.getDate());
+        String post_id = getRef(position).getKey();
+        viewHolder.mView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+            }
+        });
 
     }
 
     public static class JournalAdapterViewHolder extends RecyclerView.ViewHolder{
+        private
 
         View mView;
 

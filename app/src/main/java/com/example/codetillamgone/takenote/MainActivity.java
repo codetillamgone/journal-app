@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         initializeWidgets(); //Helper Method to Initialize Widgets including Toolbar
         mJournalList.setLayoutManager(new LinearLayoutManager(this));
         mJournalList.setHasFixedSize(true);
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("User_Notes").child(currentUid);
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("User_Notes");
         mDatabase.keepSynced(true);
         mAddNote.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("TakeNote");
         mJournalList = findViewById(R.id.recyclerview_journal);
         mAddNote = findViewById(R.id.main_add_note_ftbtn);
-        currentUid = currentUser.getUid();
+
 
 
     }

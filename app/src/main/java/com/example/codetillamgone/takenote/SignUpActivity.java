@@ -64,7 +64,7 @@ public class SignUpActivity extends AppCompatActivity{
                     Snackbar.make(findViewById(R.id.signup_layout), getString(R.string.check_network_connection), Snackbar.LENGTH_SHORT).show();
 
                 }
-                else if( !userEmail.contentEquals(confirmUserPassword)){
+                else if( !userPassword.contentEquals(confirmUserPassword)){
                     mConfirmPassword.setError("Passwords don't match");
                     mConfirmPassword.requestFocus();
                 }

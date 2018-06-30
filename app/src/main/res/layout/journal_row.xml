@@ -56,7 +56,9 @@
         android:background="#dadada"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView8" />
+        app:layout_constraintTop_toBottomOf="@+id/journal_row_date" />
+
+
 
 
 </android.support.constraint.ConstraintLayout>

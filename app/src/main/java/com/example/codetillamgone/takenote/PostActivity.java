@@ -41,9 +41,14 @@ public class PostActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post);
         initializeWidgets(); //Helper Method to initialize the widgets and toolbar;
-        currentUid = currentUser.getUid();
-        mUserDatabase = FirebaseDatabase.getInstance().getReference().child("User_Notes").child(currentUid);
-        mNotes.getBackground().clearColorFilter();
+        if(currentUser != null){
+
+
+            currentUid = currentUser.getUid();
+            mUserDatabase = FirebaseDatabase.getInstance().getReference().child("User_Notes").child(currentUid);
+        }
+
+
 
 
 
@@ -103,7 +108,11 @@ public class PostActivity extends AppCompatActivity {
         }
         else {
             String currentDate = DateFormat.getDateInstance().format(new Date());
-           newNote = mUserDatabase.push();
+            if( currentUser != null){
+
+                newNote = mUserDatabase.push();
+
+            }
             HashMap noteMap = new HashMap<>();
             noteMap.put("title", title);
             noteMap.put("note", notes);
