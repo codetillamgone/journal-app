@@ -1,6 +1,9 @@
 package com.example.codetillamgone.takenote;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
@@ -31,22 +34,19 @@ import java.util.Map;
 public class PostActivity extends AppCompatActivity {
     private FirebaseUser currentUser;
     private TextInputLayout mTitle, mNotes;
-    private DatabaseReference mUserDatabase, newNote;
+    private DatabaseReference mUserDatabase;
     private Toolbar mToolbar;
-    private String currentUid;
     private ProgressBar mProgressBar;
+    private FirebaseAuth mAuth;
+    private String title, notes,currentDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post);
+        mAuth = FirebaseAuth.getInstance();
         initializeWidgets(); //Helper Method to initialize the widgets and toolbar;
-        if(currentUser != null){
 
-
-            currentUid = currentUser.getUid();
-            mUserDatabase = FirebaseDatabase.getInstance().getReference().child("User_Notes").child(currentUid);
-        }
 
 
 
@@ -90,7 +90,28 @@ public class PostActivity extends AppCompatActivity {
         int itemId = item.getItemId();
         if(itemId == R.id.action_save){
             mProgressBar.setVisibility(View.VISIBLE);
-            startPosting();
+             title = mTitle.getEditText().getText().toString().trim();
+             notes = mNotes.getEditText().getText().toString().trim();
+             currentDate = DateFormat.getDateInstance().format(new Date());
+            if(TextUtils.isEmpty(title) && TextUtils.isEmpty(notes)){
+                Snackbar.make(findViewById(R.id.post_layout), getString(R.string.empty_field), Snackbar.LENGTH_SHORT).show();
+            }
+            else if(isOnline()){
+
+                startPosting();
+
+            }
+            else if(!isOnline()){
+
+                Snackbar.make(findViewById(R.id.post_layout), getString(R.string.note_received), Snackbar.LENGTH_SHORT).show();
+                startPosting();
+
+            }
+
+
+
+
+
         }
         else if( itemId == android.R.id.home){
             NavUtils.navigateUpFromSameTask(this);
@@ -101,54 +122,48 @@ public class PostActivity extends AppCompatActivity {
 
     private void startPosting() {
 
-        String title = mTitle.getEditText().getText().toString().trim();
-        String notes = mNotes.getEditText().getText().toString().trim();
-        if(TextUtils.isEmpty(title) && TextUtils.isEmpty(notes)){
-            Snackbar.make(findViewById(R.id.post_layout), getString(R.string.empty_field), Snackbar.LENGTH_SHORT).show();
-        }
-        else {
-            String currentDate = DateFormat.getDateInstance().format(new Date());
+            currentUser = FirebaseAuth.getInstance().getCurrentUser();
             if( currentUser != null){
+                String uid = currentUser.getUid();
+                mUserDatabase = FirebaseDatabase.getInstance().getReference().child("User_Notes").child(uid);
 
-                newNote = mUserDatabase.push();
+                HashMap<String, String> noteMap = new HashMap<>();
+                noteMap.put("title", title);
+                noteMap.put("note", notes);
+                noteMap.put("date", currentDate);
+
+
+                mUserDatabase.setValue(noteMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+
+                        if(task.isSuccessful()){
+                            Snackbar.make(findViewById(R.id.post_layout), getString(R.string.note_uploaded), Snackbar.LENGTH_SHORT).show();
+                        }
+                        else {
+                            
+                        }
+                    }
+                });
 
             }
-            HashMap noteMap = new HashMap<>();
-            noteMap.put("title", title);
-            noteMap.put("note", notes);
-            noteMap.put("date", currentDate);
-
-
-
-            newNote.setValue(noteMap).addOnCompleteListener(new OnCompleteListener<Void>() {
-                @Override
-                public void onComplete(@NonNull Task<Void> task) {
-                    if(task.isSuccessful()){
-                        Snackbar.make(findViewById(R.id.post_layout), getString(R.string.note_uploaded), Snackbar.LENGTH_SHORT).show();
-
-                    }
-                    else {
-                        Snackbar.make(findViewById(R.id.post_layout), getString(R.string.note_received), Snackbar.LENGTH_SHORT).show();
-                    }
-                    mProgressBar.setVisibility(View.GONE);
-                    Intent mainIntent = new Intent(PostActivity.this, MainActivity.class);
-                    mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivity(mainIntent);
-                    finish();
-                }
-            });
-
-
-
 
         }
 
-    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.post_menu, menu);
 
         return true;
+    }
+
+    //Helper Method to Check Network Connectivity
+    private boolean isOnline() {
+        ConnectivityManager connMgr = (ConnectivityManager)
+                getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+        return (networkInfo != null && networkInfo.isConnected());
     }
 }

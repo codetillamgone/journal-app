@@ -112,6 +112,7 @@ public class SignUpActivity extends AppCompatActivity{
 
             }
             else {
+                mRegProgressDialog.hide();
                 try{
                     throw task.getException();
                 } catch  (FirebaseAuthWeakPasswordException e){
@@ -128,9 +129,9 @@ public class SignUpActivity extends AppCompatActivity{
                 }
                 catch (Exception e){
                     Log.e(LOG_TAG, e.getMessage());
+
                 }
-                mRegProgressDialog.hide();
-                Toast.makeText(SignUpActivity.this, "You got some Error", Toast.LENGTH_SHORT).show();
+
             }
         }
     });
